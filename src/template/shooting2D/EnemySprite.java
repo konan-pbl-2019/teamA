@@ -9,11 +9,11 @@ public class EnemySprite extends Sprite {
 	// Õ“Ë”»’è—p‚ÌBoundingSphere‚Ì”¼Œa
 	public double collisionRadius = 1.0;
 
-	private int enemyHP = 100;
+	private int enemyHP = 10000;
 
 	// ’e–‹‚ÌÅ‘å”
 	private final int MAX_DANMAKU = 32;
-	
+
 	// ’e‚Ì”­Ë‚Ì“G‚©‚ç‚ÌˆÊ’u
 	private final int BULLET_DISTANCE = 1;
 
@@ -33,7 +33,7 @@ public class EnemySprite extends Sprite {
 
 	/**
 	 * Õ“Ë”»’è‚ÌBounding Spherei‹«ŠE‹…j‚ğcollisionRadius‚Åİ’è‚·‚é
-	 * 
+	 *
 	 * @param collisionRadius
 	 *            -- BoundingSphere‚Ì”¼Œa
 	 */
@@ -43,7 +43,7 @@ public class EnemySprite extends Sprite {
 
 	/**
 	 * Õ“Ë”»’è‚ÌBounding Spherei‹«ŠE‹…j‚Ì”¼Œa‚ğ•Ô‚·
-	 * 
+	 *
 	 * @return@ BoundingSphere‚Ì”¼Œa
 	 */
 	public double getCollisionRadius() {
@@ -58,12 +58,12 @@ public class EnemySprite extends Sprite {
 
 	/**
 	 * ’e–‹‚ª“ü‚Á‚½ArrayList‚ğ•Ô‚·
-	 * 
+	 *
 	 * @return -- ’e–‹‚ª“ü‚Á‚½ArrayList
 	 */
 	public ArrayList<EnemyBullet> shootDanmaku() {
 		double bulletX, bulletY;
-		
+
 		ArrayList<EnemyBullet> enemyBulletList = new ArrayList<EnemyBullet>();
 		for (int i = 0; i < MAX_DANMAKU; i++) {
 			EnemyBullet enemyBullet = new EnemyBullet("data\\images\\enemyBullet.gif");
@@ -108,7 +108,7 @@ public class EnemySprite extends Sprite {
 			vel.setY(Math.abs(this.getVelocity().getY()) * -1.0);
 			break;
 		}
-		
+
 		setVelocity(vel);
 		super.motion(interval);
 
@@ -116,12 +116,12 @@ public class EnemySprite extends Sprite {
 
 	/**
 	 * ‰æ–Ê‚ğX•ûŒü‚Éo‚Ä‚¢‚È‚¢‚©?
-	 * 
+	 *
 	 * @return -1: X‚Ì•‰‚Ì•ûŒü‚Éo‚Ä‚¢‚é, 0: X•ûŒü‚Éo‚Ä‚¢‚È‚¢, 1: X‚Ì³‚Ì•ûŒü‚Éo‚Ä‚¢‚é
 	 */
 	private int insideX() {
 		if (this.getPosition().getX() > rangeWidth / 2.0) {
-			return 1;		
+			return 1;
 		} else if (this.getPosition().getX() < -rangeWidth / 2.0) {
 			return -1;
 		} else {
@@ -131,7 +131,7 @@ public class EnemySprite extends Sprite {
 
 	/**
 	 * ‰æ–Ê‚ğY•ûŒü‚Éo‚Ä‚¢‚È‚¢‚©?
-	 * 
+	 *
 	 * @return -1: Y‚Ì•‰‚Ì•ûŒü‚Éo‚Ä‚¢‚é, 0: Y•ûŒü‚Éo‚Ä‚¢‚È‚¢, 1: Y‚Ì³‚Ì•ûŒü‚Éo‚Ä‚¢‚é
 	 */
 	private int insideY() {

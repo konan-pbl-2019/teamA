@@ -76,23 +76,23 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		// キー操作による自機のアクション処理
 		// 左
 		if (virtualController.isKeyDown(0, RWTVirtualController.LEFT)) {
-			myShipSprite.moveLeft(5.0);
+			myShipSprite.moveLeft(10.0);
 		}
 		// 右
 		if (virtualController.isKeyDown(0, RWTVirtualController.RIGHT)) {
-			myShipSprite.moveRight(5.0);
+			myShipSprite.moveRight(10.0);
 		}
 		// 上
 		if (virtualController.isKeyDown(0, RWTVirtualController.UP)) {
-			myShipSprite.moveUp(5.0);
+			myShipSprite.moveUp(10.0);
 		}
 		// 下
 		if (virtualController.isKeyDown(0, RWTVirtualController.DOWN)) {
-			myShipSprite.moveDown(5.0);
+			myShipSprite.moveDown(10.0);
 		}
 
 		// 弾の発射
-		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_A)) {
+		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_D)) {
 			if (System.currentTimeMillis() - lastMyShipBulletShootTime > 1000) {
 				myShipBullet = new MyShipBullet("data\\images\\myBullet.gif");
 				myShipBullet.setPosition(myShipSprite.getPosition());
@@ -104,7 +104,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		}
 
 		// 弾幕の発射
-		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_B)) {
+		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)) {
 			if (System.currentTimeMillis() - lastMyShipBulletShootDanamakuTime > 1000) {
 				myShipBulletFromMyShip = myShipSprite.shootDanmaku();
 				this.setMyShipBullet(myShipBulletFromMyShip);
@@ -180,11 +180,17 @@ public class TemplateShooting2D extends SimpleShootingGame {
 			EnemyBullet enemyBullet = enemyBulletList.get(i);
 			if (myShipSprite.checkCollision(enemyBullet)) {
 				System.out.println("敵の弾" + i + "と衝突した！");
+				myShipSprite.addMyHP(-10);
+				System.out.println("カキンのHP" + myShipSprite.getMyHP());
+
+				if (myShipSprite.MeDown()) {
+					System.out.println("やられた！");
+				}
 			}
 		}
 
 		// 衝突判定（プレイヤーの弾と敵の弾）
-		for (int i = 0; i < myShipBulletList.size(); i++) {
+		/*for (int i = 0; i < myShipBulletList.size(); i++) {
 			MyShipBullet myShipBullet = myShipBulletList.get(i);
 			for (int j = 0; j < enemyBulletList.size(); j++) {
 				EnemyBullet enemyBullet = enemyBulletList.get(j);
@@ -196,7 +202,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 				}
 			}
 		}
-
+		*/
 		// 衝突判定（プレイヤーの弾と敵）
 		for (int i = 0; i < myShipBulletList.size(); i++) {
 			MyShipBullet myShipBullet = myShipBulletList.get(i);
@@ -221,7 +227,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	/**
 	 * 弾幕が入ったリスト（myShipBulletFromMyShip）をプレイヤーの弾のリストに設定する
-	 * 
+	 *
 	 * @param myShipBulletFromMyShip
 	 */
 	public void setMyShipBullet(ArrayList<MyShipBullet> myShipBulletFromMyShip) {
@@ -233,7 +239,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	/**
 	 * 弾幕が入ったリスト（enemyBulletListFromEnemy）を敵の弾のリストに設定する
-	 * 
+	 *
 	 * @param enemyBulletListFromEnemy
 	 */
 	public void setEnemyBullet(ArrayList<EnemyBullet> enemyBulletListFromEnemy) {
@@ -245,7 +251,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	/**
 	 * ゲームのメイン
-	 * 
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {

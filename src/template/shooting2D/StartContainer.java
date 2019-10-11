@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.GraphicsConfiguration;
 
 import framework.RWT.RWTContainer;
+import framework.RWT.RWTImage;
 import framework.RWT.RWTLabel;
 import framework.RWT.RWTVirtualController;
 import framework.RWT.RWTVirtualKey;
@@ -17,12 +18,17 @@ public class StartContainer extends RWTContainer {
 
 	@Override
 	public void build(GraphicsConfiguration gc) {
+		RWTImage image = new RWTImage("data\\images\\m101.jpg");
+		addWidget(image);
+
 		RWTLabel startLabel = new RWTLabel();
 		startLabel.setString("Start");
 		startLabel.setRelativePosition(0.3f, 0.5f);
 		Font f = new Font("", Font.PLAIN, 60);
 		startLabel.setFont(f);
 		addWidget(startLabel);
+
+		repaint();
 	}
 
 	@Override

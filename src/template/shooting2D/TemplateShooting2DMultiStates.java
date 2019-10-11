@@ -31,10 +31,11 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	// あとで設計変更
 	// Enemyクラスでこの値を使いたいため。
 	public static final int RANGE = 30;
-	
+
 	private IGameState initialGameState = null;
 	private IGameState finalGameState = null;
-	
+	private MainContainer mainContainer = null;
+
 	public TemplateShooting2DMultiStates() {
 		super();
 		initialGameState = new IGameState() {
@@ -69,19 +70,19 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		};
 		setCurrentGameState(initialGameState);
 	}
-		
+
 	public void restart() {
 		stop();
 		setCurrentGameState(initialGameState);
 		start();
 	}
-	
+
 	public void play() {
 		stop();
 		setCurrentGameState(this);
 		start();
 	}
-	
+
 	public void ending() {
 		stop();
 		setCurrentGameState(finalGameState);
@@ -97,12 +98,12 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		//
 		// ////////////////////////////////////////////////////////
 		myShipSprite = new MyShipSprite("data\\images\\MyShip.gif");
-		myShipSprite.setPosition(0.0, -10.0);
+		myShipSprite.setPosition(-12.0, 0.0);
 		universe.place(myShipSprite);
 
 		enemySprite = new EnemySprite("data\\images\\Enemy.gif");
-		enemySprite.setPosition(0.0, 10.0);
-		enemySprite.setVelocity(5.0, 5.0);
+		enemySprite.setPosition(10.0, 0.0);
+		enemySprite.setVelocity(0.0, 8.0);
 		universe.place(enemySprite);
 
 		stage = new Ground2D(null, "data\\images\\m101.jpg", windowSizeWidth,
@@ -124,6 +125,12 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	}
 
 	@Override
+	protected RWTContainer createRWTContainer() {
+		mainContainer = new MainContainer();
+		return mainContainer;
+	}
+
+	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
 		if (virtualController.isKeyDown(Event.ENTER)) {
 			ending();
@@ -136,14 +143,6 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		// ////////////////////////////////////////////////////////
 
 		// キー操作による自機のアクション処理
-		// 左
-		if (virtualController.isKeyDown(0, RWTVirtualController.LEFT)) {
-			myShipSprite.moveLeft(5.0);
-		}
-		// 右
-		if (virtualController.isKeyDown(0, RWTVirtualController.RIGHT)) {
-			myShipSprite.moveRight(5.0);
-		}
 		// 上
 		if (virtualController.isKeyDown(0, RWTVirtualController.UP)) {
 			myShipSprite.moveUp(5.0);
@@ -283,7 +282,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 	/**
 	 * 弾幕が入ったリスト（myShipBulletFromMyShip）をプレイヤーの弾のリストに設定する
-	 * 
+	 *
 	 * @param myShipBulletFromMyShip
 	 */
 	public void setMyShipBullet(ArrayList<MyShipBullet> myShipBulletFromMyShip) {
@@ -295,7 +294,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 	/**
 	 * 弾幕が入ったリスト（enemyBulletListFromEnemy）を敵の弾のリストに設定する
-	 * 
+	 *
 	 * @param enemyBulletListFromEnemy
 	 */
 	public void setEnemyBullet(ArrayList<EnemyBullet> enemyBulletListFromEnemy) {
@@ -307,7 +306,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 	/**
 	 * ゲームのメイン
-	 * 
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {

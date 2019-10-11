@@ -2,20 +2,21 @@ package template.shooting2D;
 
 import java.util.ArrayList;
 
-import javax.vecmath.Vector2d;
-
-import framework.game2D.Actor2D;
 import framework.game2D.Sprite;
 import framework.game2D.Velocity2D;
 
 public class MyShipSprite extends Sprite {
 	// 弾の座標
 	double bulletX, bulletY;
+	//HP
+	public int myHP = 100;
 	// 弾幕の最大数
 	public final int MAX_DANMAKU = 32;
 	// 弾の発射時の自機からの位置
 	private final int BULLET_DISTANCE = 1;
 	private MyShipBullet myShipBullet;
+
+	private int myHP = 10000;
 
 	public MyShipSprite(String string) {
 		super(string);
@@ -30,7 +31,7 @@ public class MyShipSprite extends Sprite {
 
 	/**
 	 * 弾幕が入ったArrayListを返す
-	 * 
+	 *
 	 * @return -- 弾幕が入ったArrayList
 	 */
 	public ArrayList<MyShipBullet> shootDanmaku() {
@@ -62,7 +63,7 @@ public class MyShipSprite extends Sprite {
 
 	/**
 	 * widthとheightで決められたウィンドウの幅の中にプレイヤーがいるかどうかを返す
-	 * 
+	 *
 	 * @param width
 	 * @param height
 	 * @return
@@ -76,5 +77,30 @@ public class MyShipSprite extends Sprite {
 			}
 		}
 		return false;
+	}
+
+	// ////////////////////////////////////////////////////
+	//
+	// 自機のHP関連メソッド
+	//
+	// ///////////////////////////////////////////////////
+	public boolean MeDown() {
+		if (myHP <= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void addMyHP(int value) {
+		myHP += value;
+	}
+
+	public int getMyHP() {
+		return myHP;
+	}
+
+	public void setMyHP(int myHP) {
+		this.myHP = myHP;
 	}
 }

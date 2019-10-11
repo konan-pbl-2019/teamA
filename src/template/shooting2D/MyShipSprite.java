@@ -16,6 +16,8 @@ public class MyShipSprite extends Sprite {
 	private final int BULLET_DISTANCE = 1;
 	private MyShipBullet myShipBullet;
 
+	private int myHP = 10000;
+
 	public MyShipSprite(String string) {
 		super(string);
 		super.setCollisionRadius(1.0);
@@ -29,7 +31,7 @@ public class MyShipSprite extends Sprite {
 
 	/**
 	 * 弾幕が入ったArrayListを返す
-	 * 
+	 *
 	 * @return -- 弾幕が入ったArrayList
 	 */
 	public ArrayList<MyShipBullet> shootDanmaku() {
@@ -61,7 +63,7 @@ public class MyShipSprite extends Sprite {
 
 	/**
 	 * widthとheightで決められたウィンドウの幅の中にプレイヤーがいるかどうかを返す
-	 * 
+	 *
 	 * @param width
 	 * @param height
 	 * @return
@@ -75,5 +77,30 @@ public class MyShipSprite extends Sprite {
 			}
 		}
 		return false;
+	}
+
+	// ////////////////////////////////////////////////////
+	//
+	// 自機のHP関連メソッド
+	//
+	// ///////////////////////////////////////////////////
+	public boolean MeDown() {
+		if (myHP <= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void addMyHP(int value) {
+		myHP += value;
+	}
+
+	public int getMyHP() {
+		return myHP;
+	}
+
+	public void setMyHP(int myHP) {
+		this.myHP = myHP;
 	}
 }

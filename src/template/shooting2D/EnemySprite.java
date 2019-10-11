@@ -6,18 +6,18 @@ import framework.game2D.Sprite;
 import framework.game2D.Velocity2D;
 
 public class EnemySprite extends Sprite {
-	// Õ“Ë”»’è—p‚ÌBoundingSphere‚Ì”¼Œa
+	// è¡çªåˆ¤å®šç”¨ã®BoundingSphereã®åŠå¾„
 	public double collisionRadius = 1.0;
 
-	public int enemyHP = 100;
+	private int enemyHP = 10000;
 
-	// ’e–‹‚ÌÅ‘å”
+	// å¼¾å¹•ã®æœ€å¤§æ•°
 	private final int MAX_DANMAKU = 32;
-	
-	// ’e‚Ì”­Ë‚Ì“G‚©‚ç‚ÌˆÊ’u
+
+	// å¼¾ã®ç™ºå°„æ™‚ã®æ•µã‹ã‚‰ã®ä½ç½®
 	private final int BULLET_DISTANCE = 1;
 
-	// ƒQ[ƒ€‚Ì•\¦”ÍˆÍ‚©‚ç“¾‚é‚±‚Æ‚ªo—ˆ‚é•E‚‚³
+	// ã‚²ãƒ¼ãƒ ã®è¡¨ç¤ºç¯„å›²ã‹ã‚‰å¾—ã‚‹ã“ã¨ãŒå‡ºæ¥ã‚‹å¹…ãƒ»é«˜ã•
 	int rangeWidth = TemplateShooting2D.RANGE;
 	int rangeHeight = TemplateShooting2D.RANGE;
 
@@ -27,24 +27,24 @@ public class EnemySprite extends Sprite {
 
 	// ////////////////////////////////////////////////////
 	//
-	// “G‹@‚ÌÕ“Ë”»’èŠÖ˜Aƒƒ\ƒbƒh
+	// æ•µæ©Ÿã®è¡çªåˆ¤å®šé–¢é€£ãƒ¡ã‚½ãƒƒãƒ‰
 	//
 	// ///////////////////////////////////////////////////
 
 	/**
-	 * Õ“Ë”»’è‚ÌBounding Spherei‹«ŠE‹…j‚ğcollisionRadius‚Åİ’è‚·‚é
-	 * 
+	 * è¡çªåˆ¤å®šã®Bounding Sphereï¼ˆå¢ƒç•Œçƒï¼‰ã‚’collisionRadiusã§è¨­å®šã™ã‚‹
+	 *
 	 * @param collisionRadius
-	 *            -- BoundingSphere‚Ì”¼Œa
+	 *            -- BoundingSphereã®åŠå¾„
 	 */
 	public void setCollisionRadius(double collisionRadius) {
 		this.collisionRadius = collisionRadius;
 	}
 
 	/**
-	 * Õ“Ë”»’è‚ÌBounding Spherei‹«ŠE‹…j‚Ì”¼Œa‚ğ•Ô‚·
-	 * 
-	 * @return@ BoundingSphere‚Ì”¼Œa
+	 * è¡çªåˆ¤å®šã®Bounding Sphereï¼ˆå¢ƒç•Œçƒï¼‰ã®åŠå¾„ã‚’è¿”ã™
+	 *
+	 * @returnã€€ BoundingSphereã®åŠå¾„
 	 */
 	public double getCollisionRadius() {
 		return collisionRadius;
@@ -52,18 +52,18 @@ public class EnemySprite extends Sprite {
 
 	// ////////////////////////////////////////////////////
 	//
-	// “G‹@‚Ì’e‚ğ”­Ë‚·‚éƒƒ\ƒbƒh
+	// æ•µæ©Ÿã®å¼¾ã‚’ç™ºå°„ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
 	//
 	// ///////////////////////////////////////////////////
 
 	/**
-	 * ’e–‹‚ª“ü‚Á‚½ArrayList‚ğ•Ô‚·
-	 * 
-	 * @return -- ’e–‹‚ª“ü‚Á‚½ArrayList
+	 * å¼¾å¹•ãŒå…¥ã£ãŸArrayListã‚’è¿”ã™
+	 *
+	 * @return -- å¼¾å¹•ãŒå…¥ã£ãŸArrayList
 	 */
 	public ArrayList<EnemyBullet> shootDanmaku() {
 		double bulletX, bulletY;
-		
+
 		ArrayList<EnemyBullet> enemyBulletList = new ArrayList<EnemyBullet>();
 		for (int i = 0; i < MAX_DANMAKU; i++) {
 			EnemyBullet enemyBullet = new EnemyBullet("data\\images\\enemyBullet.gif");
@@ -71,9 +71,9 @@ public class EnemySprite extends Sprite {
 			bulletX = BULLET_DISTANCE * (Math.cos(i * (2 * Math.PI / MAX_DANMAKU)));
 			bulletY = BULLET_DISTANCE * (Math.sin(i * (2 * Math.PI / MAX_DANMAKU)));
 
-			// ’e‚ÌˆÊ’u‚ğİ’è
+			// å¼¾ã®ä½ç½®ã‚’è¨­å®š
 			enemyBullet.setPosition(this.getPosition());
-			// ’e‚ÌˆÚ“®ƒxƒNƒgƒ‹‚ğİ’è‚·‚é
+			// å¼¾ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«ã‚’è¨­å®šã™ã‚‹
 			enemyBullet.setVelocity(new Velocity2D(bulletX * 5, bulletY * 5));
 
 			enemyBulletList.add(enemyBullet);
@@ -84,7 +84,7 @@ public class EnemySprite extends Sprite {
 
 	// ////////////////////////////////////////////////////
 	//
-	// “G‚ªƒEƒBƒ“ƒhƒE“à‚É‚¢‚é‚©‚Ç‚¤‚©‚Ìƒƒ\ƒbƒh
+	// æ•µãŒã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å†…ã«ã„ã‚‹ã‹ã©ã†ã‹ã®ãƒ¡ã‚½ãƒƒãƒ‰
 	//
 	// ///////////////////////////////////////////////////
 
@@ -108,20 +108,20 @@ public class EnemySprite extends Sprite {
 			vel.setY(Math.abs(this.getVelocity().getY()) * -1.0);
 			break;
 		}
-		
+
 		setVelocity(vel);
 		super.motion(interval);
 
 	}
 
 	/**
-	 * ‰æ–Ê‚ğX•ûŒü‚Éo‚Ä‚¢‚È‚¢‚©?
-	 * 
-	 * @return -1: X‚Ì•‰‚Ì•ûŒü‚Éo‚Ä‚¢‚é, 0: X•ûŒü‚Éo‚Ä‚¢‚È‚¢, 1: X‚Ì³‚Ì•ûŒü‚Éo‚Ä‚¢‚é
+	 * ç”»é¢ã‚’Xæ–¹å‘ã«å‡ºã¦ã„ãªã„ã‹?
+	 *
+	 * @return -1: Xã®è² ã®æ–¹å‘ã«å‡ºã¦ã„ã‚‹, 0: Xæ–¹å‘ã«å‡ºã¦ã„ãªã„, 1: Xã®æ­£ã®æ–¹å‘ã«å‡ºã¦ã„ã‚‹
 	 */
 	private int insideX() {
 		if (this.getPosition().getX() > rangeWidth / 2.0) {
-			return 1;		
+			return 1;
 		} else if (this.getPosition().getX() < -rangeWidth / 2.0) {
 			return -1;
 		} else {
@@ -130,9 +130,9 @@ public class EnemySprite extends Sprite {
 	}
 
 	/**
-	 * ‰æ–Ê‚ğY•ûŒü‚Éo‚Ä‚¢‚È‚¢‚©?
-	 * 
-	 * @return -1: Y‚Ì•‰‚Ì•ûŒü‚Éo‚Ä‚¢‚é, 0: Y•ûŒü‚Éo‚Ä‚¢‚È‚¢, 1: Y‚Ì³‚Ì•ûŒü‚Éo‚Ä‚¢‚é
+	 * ç”»é¢ã‚’Yæ–¹å‘ã«å‡ºã¦ã„ãªã„ã‹?
+	 *
+	 * @return -1: Yã®è² ã®æ–¹å‘ã«å‡ºã¦ã„ã‚‹, 0: Yæ–¹å‘ã«å‡ºã¦ã„ãªã„, 1: Yã®æ­£ã®æ–¹å‘ã«å‡ºã¦ã„ã‚‹
 	 */
 	private int insideY() {
 		if (this.getPosition().getY() > rangeHeight / 2.0) {
@@ -146,7 +146,7 @@ public class EnemySprite extends Sprite {
 
 	// ////////////////////////////////////////////////////
 	//
-	// “G‹@‚ÌHPŠÖ˜Aƒƒ\ƒbƒh
+	// æ•µæ©Ÿã®HPé–¢é€£ãƒ¡ã‚½ãƒƒãƒ‰
 	//
 	// ///////////////////////////////////////////////////
 	public boolean shootDown() {

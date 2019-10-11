@@ -9,7 +9,7 @@ public class EnemySprite extends Sprite {
 	// Õ“Ë”»’è—p‚ÌBoundingSphere‚Ì”¼Œa
 	public double collisionRadius = 1.0;
 
-	private int enemyHP = 100;
+	public int enemyHP = 100;
 
 	// ’e–‹‚ÌÅ‘å”
 	private final int MAX_DANMAKU = 32;

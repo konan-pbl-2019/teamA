@@ -221,7 +221,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	/**
 	 * 弾幕が入ったリスト（myShipBulletFromMyShip）をプレイヤーの弾のリストに設定する
-	 * 
+	 *
 	 * @param myShipBulletFromMyShip
 	 */
 	public void setMyShipBullet(ArrayList<MyShipBullet> myShipBulletFromMyShip) {
@@ -233,7 +233,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	/**
 	 * 弾幕が入ったリスト（enemyBulletListFromEnemy）を敵の弾のリストに設定する
-	 * 
+	 *
 	 * @param enemyBulletListFromEnemy
 	 */
 	public void setEnemyBullet(ArrayList<EnemyBullet> enemyBulletListFromEnemy) {
@@ -245,7 +245,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 	/**
 	 * ゲームのメイン
-	 * 
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {

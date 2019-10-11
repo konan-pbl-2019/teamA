@@ -13,7 +13,7 @@ import framework.gameMain.SimpleShootingGame;
 import framework.model3D.Universe;
 
 public class TemplateShooting2DMultiStates extends SimpleShootingGame {
-	private MyShipSprite myShipSprite;
+	public MyShipSprite myShipSprite;
 	private MyShipBullet myShipBullet;
 	private ArrayList<MyShipBullet> myShipBulletList = new ArrayList<MyShipBullet>();
 	private ArrayList<MyShipBullet> myShipBulletFromMyShip = new ArrayList<MyShipBullet>();
@@ -34,7 +34,8 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 	private IGameState initialGameState = null;
 	private IGameState finalGameState = null;
-	private MainContainer mainContainer = null;
+	private IGameState mainState = null;
+	private RWTContainer mainContainer = null;
 
 	public TemplateShooting2DMultiStates() {
 		super();
@@ -53,12 +54,13 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			public void update(RWTVirtualController virtualController, long interval) {
 			}
 		};
-		finalGameState = new IGameState() {
+
+		mainState = new IGameState() {
 			@Override
 			public void init(RWTFrame3D frame) {
 				TemplateShooting2DMultiStates.this.frame = frame;
-				RWTContainer container = new EndingContainer(TemplateShooting2DMultiStates.this);
-				changeContainer(container);
+				mainContainer = new MainContainer(TemplateShooting2DMultiStates.this);
+				changeContainer(mainContainer);
 			}
 			@Override
 			public boolean useTimer() {
@@ -66,6 +68,24 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			}
 			@Override
 			public void update(RWTVirtualController virtualController, long interval) {
+				play();
+			}
+		};
+
+		finalGameState = new IGameState() {
+			@Override
+			public void init(RWTFrame3D frame) {
+				TemplateShooting2DMultiStates.this.frame = frame;
+				mainContainer = new EndingContainer(TemplateShooting2DMultiStates.this);
+				changeContainer(mainContainer);
+			}
+			@Override
+			public boolean useTimer() {
+				return false;
+			}
+			@Override
+			public void update(RWTVirtualController virtualController, long interval) {
+				play();
 			}
 		};
 		setCurrentGameState(initialGameState);
@@ -79,7 +99,8 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 	public void play() {
 		stop();
-		setCurrentGameState(this);
+		setCurrentGameState(mainState);
+
 		start();
 	}
 
@@ -124,11 +145,13 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		return f;
 	}
 
+	/*
 	@Override
 	protected RWTContainer createRWTContainer() {
 		mainContainer = new MainContainer();
 		return mainContainer;
 	}
+	*/
 
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {

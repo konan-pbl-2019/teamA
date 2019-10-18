@@ -112,13 +112,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 			}
 		}
 
-		// “G‚ÌƒAƒNƒVƒ‡ƒ“ˆ—
-		// ’e–‹‚Ì”­ŽË
-		if (System.currentTimeMillis() - lastEnemyShootTime > 1000) {
-			enemyBulletFromEnemy = enemySprite.shootDanmaku();
-			this.setEnemyBullet(enemyBulletFromEnemy);
-			lastEnemyShootTime = System.currentTimeMillis();
-		}
+		enemySprite.shot(this);
 
 		// /////////////////////////////////////////////////////////
 		//

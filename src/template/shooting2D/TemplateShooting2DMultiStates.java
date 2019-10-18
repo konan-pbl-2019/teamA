@@ -20,17 +20,19 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 	private EnemySprite enemySprite;
 	private ArrayList<EnemyBullet> enemyBulletList = new ArrayList<EnemyBullet>();
-	private ArrayList<EnemyBullet> enemyBulletFromEnemy = new ArrayList<EnemyBullet>();
+	public ArrayList<EnemyBullet> enemyBulletFromEnemy = new ArrayList<EnemyBullet>();
 
 	private Ground2D stage;
 
 	private long lastMyShipBulletShootTime = 0;
 	private long lastMyShipBulletShootDanamakuTime = 0;
-	private long lastEnemyShootTime = 0;
 
 	// あとで設計変更
 	// Enemyクラスでこの値を使いたいため。
 	public static final int RANGE = 30;
+
+	// 自機の速度
+	private Velocity2D speed;
 
 	private IGameState initialGameState = null;
 	private IGameState finalGameState = null;
@@ -137,6 +139,8 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		// ////////////////////////////////////////////////////////
 		myShipSprite = new MyShipSprite("data\\images\\MyShip.gif");
 		myShipSprite.setPosition(-12.0, 0.0);
+		this.speed = new Velocity2D(10.0,10.0);
+
 		universe.place(myShipSprite);
 
 		enemySprite = new EnemySprite("data\\images\\Enemy.gif");
@@ -183,13 +187,21 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		// ////////////////////////////////////////////////////////
 
 		// キー操作による自機のアクション処理
+		// 左
+		if (virtualController.isKeyDown(0, RWTVirtualController.LEFT)) {
+			myShipSprite.moveLeft(speed.getX());
+		}
+		// 右
+		if (virtualController.isKeyDown(0, RWTVirtualController.RIGHT)) {
+			myShipSprite.moveRight(speed.getX());
+		}
 		// 上
 		if (virtualController.isKeyDown(0, RWTVirtualController.UP)) {
-			myShipSprite.moveUp(5.0);
+			myShipSprite.moveUp(speed.getY());
 		}
 		// 下
 		if (virtualController.isKeyDown(0, RWTVirtualController.DOWN)) {
-			myShipSprite.moveDown(5.0);
+			myShipSprite.moveDown(speed.getY());
 		}
 
 		// 弾の発射
@@ -213,13 +225,8 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			}
 		}
 
-		// 敵のアクション処理
-		// 弾幕の発射
-		if (System.currentTimeMillis() - lastEnemyShootTime > 1000) {
-			enemyBulletFromEnemy = enemySprite.shootDanmaku();
-			this.setEnemyBullet(enemyBulletFromEnemy);
-			lastEnemyShootTime = System.currentTimeMillis();
-		}
+		/// 敵の弾幕
+		enemySprite.shot(this);
 
 		// /////////////////////////////////////////////////////////
 		//
@@ -258,7 +265,9 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		// 敵（スプライト）を動かす
 		enemySprite.motion(interval);
 
+		/////////////////////////////////////////////////////////////////////////////////////
 		// 敵の弾を動かす。同時にウィンドウ外に出てしまったかどうかを判定し、出てしまったらウインドウから弾を消す。
+		// //////////////////////////////////////////////////////////////////////////////////
 		for (int i = 0; i < enemyBulletList.size(); i++) {
 			EnemyBullet enemyBullet = enemyBulletList.get(i);
 			enemyBullet.motion(interval);		// 敵の弾の移動

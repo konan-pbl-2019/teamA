@@ -1,25 +1,31 @@
 package template.shooting2D;
 
+
 import java.util.ArrayList;
 
 import framework.game2D.Sprite;
 import framework.game2D.Velocity2D;
 
 public class EnemySprite extends Sprite {
-	// 衝突判定用のBoundingSphereの半径
+	// 髯ｦ譎会ｽｪ竏晄�幄楜螟ら舞邵ｺ�ｽｮBoundingSphere邵ｺ�ｽｮ陷企宦�ｽｾ�ｿｽ
 	public double collisionRadius = 1.0;
+
+	double t = 0.0;
 
 	private int enemyHP = 10000;
 
-	// 弾幕の最大数
+	// 陟托ｽｾ陝ｷ霈費ｿｽ�ｽｮ隴幢ｿｽ陞滂ｽｧ隰ｨ�ｽｰ
 	private final int MAX_DANMAKU = 32;
 
-	// 弾の発射時の敵からの位置
+	// 陟托ｽｾ邵ｺ�ｽｮ騾具ｽｺ陝��ｿｽ隴弱ｅ�ｿｽ�ｽｮ隰ｨ�ｽｵ邵ｺ荵晢ｽ臥ｸｺ�ｽｮ闖ｴ蜥ｲ�ｽｽ�ｽｮ
 	private final int BULLET_DISTANCE = 1;
 
-	// ゲームの表示範囲から得ることが出来る幅・高さ
+	// 郢ｧ�ｽｲ郢晢ｽｼ郢晢ｿｽ邵ｺ�ｽｮ髯ｦ�ｽｨ驕会ｽｺ驕ｽ�ｿｽ陜暦ｽｲ邵ｺ荵晢ｽ芽�募干�ｽ狗ｸｺ阮吮�堤ｸｺ謔滂ｿｽ�ｽｺ隴夲ｽ･郢ｧ蜿･�ｽｹ�ｿｽ郢晢ｽｻ鬯ｮ蛟･�ｼ�
 	int rangeWidth = TemplateShooting2D.RANGE;
 	int rangeHeight = TemplateShooting2D.RANGE;
+
+	//邨碁℃譎る俣
+	public double timeenemy = 0.0;
 
 	public EnemySprite(String imageFile) {
 		super(imageFile);
@@ -27,24 +33,24 @@ public class EnemySprite extends Sprite {
 
 	// ////////////////////////////////////////////////////
 	//
-	// 敵機の衝突判定関連メソッド
+	// 隰ｨ�ｽｵ隶匁ｺ假ｿｽ�ｽｮ髯ｦ譎会ｽｪ竏晄�幄楜螟先悴鬨ｾ�ｽ｣郢晢ｽ｡郢ｧ�ｽｽ郢晢ｿｽ郢晢ｿｽ
 	//
 	// ///////////////////////////////////////////////////
 
 	/**
-	 * 衝突判定のBounding Sphere（境界球）をcollisionRadiusで設定する
+	 * 髯ｦ譎会ｽｪ竏晄�幄楜螢ｹ�ｿｽ�ｽｮBounding Sphere�ｿｽ�ｽｼ莠･�ｽ｢�ｿｽ騾｡讙主ｸ･�ｿｽ�ｽｼ蟲ｨ�ｽ団ollisionRadius邵ｺ�ｽｧ髫ｪ�ｽｭ陞ｳ螢ｹ笘�郢ｧ�ｿｽ
 	 *
 	 * @param collisionRadius
-	 *            -- BoundingSphereの半径
+	 *            -- BoundingSphere邵ｺ�ｽｮ陷企宦�ｽｾ�ｿｽ
 	 */
 	public void setCollisionRadius(double collisionRadius) {
 		this.collisionRadius = collisionRadius;
 	}
 
 	/**
-	 * 衝突判定のBounding Sphere（境界球）の半径を返す
+	 * 髯ｦ譎会ｽｪ竏晄�幄楜螢ｹ�ｿｽ�ｽｮBounding Sphere�ｿｽ�ｽｼ莠･�ｽ｢�ｿｽ騾｡讙主ｸ･�ｿｽ�ｽｼ蟲ｨ�ｿｽ�ｽｮ陷企宦�ｽｾ�ｿｽ郢ｧ螳夲ｽｿ譁絶�
 	 *
-	 * @return　 BoundingSphereの半径
+	 * @return邵ｲ�ｿｽ BoundingSphere邵ｺ�ｽｮ陷企宦�ｽｾ�ｿｽ
 	 */
 	public double getCollisionRadius() {
 		return collisionRadius;
@@ -52,14 +58,14 @@ public class EnemySprite extends Sprite {
 
 	// ////////////////////////////////////////////////////
 	//
-	// 敵機の弾を発射するメソッド
+	// 隰ｨ�ｽｵ隶匁ｺ假ｿｽ�ｽｮ陟托ｽｾ郢ｧ蝣､蛹ｱ陝��ｿｽ邵ｺ蜷ｶ�ｽ狗ｹ晢ｽ｡郢ｧ�ｽｽ郢晢ｿｽ郢晢ｿｽ
 	//
 	// ///////////////////////////////////////////////////
 
 	/**
-	 * 弾幕が入ったArrayListを返す
+	 * 陟托ｽｾ陝ｷ霈披�ｲ陷茨ｽ･邵ｺ�ｽ｣邵ｺ陂羊rayList郢ｧ螳夲ｽｿ譁絶�
 	 *
-	 * @return -- 弾幕が入ったArrayList
+	 * @return -- 陟托ｽｾ陝ｷ霈披�ｲ陷茨ｽ･邵ｺ�ｽ｣邵ｺ陂羊rayList
 	 */
 	public ArrayList<EnemyBullet> shootDanmaku() {
 		double bulletX, bulletY;
@@ -71,9 +77,9 @@ public class EnemySprite extends Sprite {
 			bulletX = BULLET_DISTANCE * (Math.cos(i * (2 * Math.PI / MAX_DANMAKU)));
 			bulletY = BULLET_DISTANCE * (Math.sin(i * (2 * Math.PI / MAX_DANMAKU)));
 
-			// 弾の位置を設定
+			// 陟托ｽｾ邵ｺ�ｽｮ闖ｴ蜥ｲ�ｽｽ�ｽｮ郢ｧ螳夲ｽｨ�ｽｭ陞ｳ�ｿｽ
 			enemyBullet.setPosition(this.getPosition());
-			// 弾の移動ベクトルを設定する
+			// 陟托ｽｾ邵ｺ�ｽｮ驕假ｽｻ陷崎ｼ費ｿｽ蜷ｶ縺醍ｹ晏現ﾎ晉ｹｧ螳夲ｽｨ�ｽｭ陞ｳ螢ｹ笘�郢ｧ�ｿｽ
 			enemyBullet.setVelocity(new Velocity2D(bulletX * 5, bulletY * 5));
 
 			enemyBulletList.add(enemyBullet);
@@ -84,12 +90,17 @@ public class EnemySprite extends Sprite {
 
 	// ////////////////////////////////////////////////////
 	//
-	// 敵がウィンドウ内にいるかどうかのメソッド
+	// 隰ｨ�ｽｵ邵ｺ蠕後∴郢ｧ�ｽ｣郢晢ｽｳ郢晏ｳｨ縺郁怙�ｿｽ邵ｺ�ｽｫ邵ｺ�ｿｽ郢ｧ荵敖ｰ邵ｺ�ｽｩ邵ｺ�ｿｽ邵ｺ荵晢ｿｽ�ｽｮ郢晢ｽ｡郢ｧ�ｽｽ郢晢ｿｽ郢晢ｿｽ
 	//
 	// ///////////////////////////////////////////////////
 
+
+
 	public void motion(long interval) {
-		Velocity2D vel = this.getVelocity();
+		float a = 2.5f;
+		t += 0.5f;
+
+		Velocity2D vel = new Velocity2D(Math.sin(t)*a, this.getVelocity().getY());
 
 		switch (insideX()) {
 		case -1:
@@ -115,9 +126,9 @@ public class EnemySprite extends Sprite {
 	}
 
 	/**
-	 * 画面をX方向に出ていないか?
+	 * 騾包ｽｻ鬮ｱ�ｽ｢郢ｧ貉幄ｭ�ｽｹ陷ｷ莉｣竊楢怎�ｽｺ邵ｺ�ｽｦ邵ｺ�ｿｽ邵ｺ�ｽｪ邵ｺ�ｿｽ邵ｺ�ｿｽ?
 	 *
-	 * @return -1: Xの負の方向に出ている, 0: X方向に出ていない, 1: Xの正の方向に出ている
+	 * @return -1: X邵ｺ�ｽｮ髮具ｿｽ邵ｺ�ｽｮ隴�ｽｹ陷ｷ莉｣竊楢怎�ｽｺ邵ｺ�ｽｦ邵ｺ�ｿｽ郢ｧ�ｿｽ, 0: X隴�ｽｹ陷ｷ莉｣竊楢怎�ｽｺ邵ｺ�ｽｦ邵ｺ�ｿｽ邵ｺ�ｽｪ邵ｺ�ｿｽ, 1: X邵ｺ�ｽｮ雎�ｽ｣邵ｺ�ｽｮ隴�ｽｹ陷ｷ莉｣竊楢怎�ｽｺ邵ｺ�ｽｦ邵ｺ�ｿｽ郢ｧ�ｿｽ
 	 */
 	private int insideX() {
 		if (this.getPosition().getX() > rangeWidth / 2.0) {
@@ -130,9 +141,9 @@ public class EnemySprite extends Sprite {
 	}
 
 	/**
-	 * 画面をY方向に出ていないか?
+	 * 騾包ｽｻ鬮ｱ�ｽ｢郢ｧ轤ｭ隴�ｽｹ陷ｷ莉｣竊楢怎�ｽｺ邵ｺ�ｽｦ邵ｺ�ｿｽ邵ｺ�ｽｪ邵ｺ�ｿｽ邵ｺ�ｿｽ?
 	 *
-	 * @return -1: Yの負の方向に出ている, 0: Y方向に出ていない, 1: Yの正の方向に出ている
+	 * @return -1: Y邵ｺ�ｽｮ髮具ｿｽ邵ｺ�ｽｮ隴�ｽｹ陷ｷ莉｣竊楢怎�ｽｺ邵ｺ�ｽｦ邵ｺ�ｿｽ郢ｧ�ｿｽ, 0: Y隴�ｽｹ陷ｷ莉｣竊楢怎�ｽｺ邵ｺ�ｽｦ邵ｺ�ｿｽ邵ｺ�ｽｪ邵ｺ�ｿｽ, 1: Y邵ｺ�ｽｮ雎�ｽ｣邵ｺ�ｽｮ隴�ｽｹ陷ｷ莉｣竊楢怎�ｽｺ邵ｺ�ｽｦ邵ｺ�ｿｽ郢ｧ�ｿｽ
 	 */
 	private int insideY() {
 		if (this.getPosition().getY() > rangeHeight / 2.0) {
@@ -146,7 +157,7 @@ public class EnemySprite extends Sprite {
 
 	// ////////////////////////////////////////////////////
 	//
-	// 敵機のHP関連メソッド
+	// 隰ｨ�ｽｵ隶匁ｺ假ｿｽ�ｽｮHP鬮｢�ｽ｢鬨ｾ�ｽ｣郢晢ｽ｡郢ｧ�ｽｽ郢晢ｿｽ郢晢ｿｽ
 	//
 	// ///////////////////////////////////////////////////
 	public boolean shootDown() {

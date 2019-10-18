@@ -1,5 +1,6 @@
 package template.shooting2D;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsConfiguration;
 
@@ -18,11 +19,12 @@ public class StartContainer extends RWTContainer {
 
 	@Override
 	public void build(GraphicsConfiguration gc) {
-		RWTImage image = new RWTImage("data\\images\\m101.jpg");
+		RWTImage image = new RWTImage("data\\images\\Background_StartScreen.jpg");
 		addWidget(image);
 
 		RWTLabel startLabel = new RWTLabel();
 		startLabel.setString("カキン・ノ・ダズの冒険");
+		startLabel.setColor(Color.white);
 		startLabel.setRelativePosition(0f, 0.5f);
 		Font f = new Font("", Font.PLAIN, 40);
 		startLabel.setFont(f);

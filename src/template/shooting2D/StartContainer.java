@@ -26,7 +26,7 @@ public class StartContainer extends RWTContainer {
 		RWTImage image = new RWTImage("data\\images\\Background_StartScreen.jpg");
 		addWidget(image);
 		RWTLabel startLabel = new RWTLabel();
-		startLabel.setString("繧ｫ繧ｭ繝ｳ繝ｻ繝弱�ｻ繝繧ｺ縺ｮ蜀帝匱");
+		startLabel.setString("カキン・ノ・ダズの冒険");
 		startLabel.setColor(Color.white);
 		startLabel.setRelativePosition(0f, 0.5f);
 		Font f = new Font("", Font.PLAIN, 40);

@@ -137,6 +137,14 @@ public class EnemySprite extends Sprite {
 		}
 	}
 
+	/// <summary>
+	/// 状態遷移
+	/// </summary>
+	public void setEnemyState(int shotState)
+	{
+		this.shotState = shotState;
+	}
+
 	// ////////////////////////////////////////////////////
 	//
 	// 隰ｨ�ｽｵ邵ｺ蠕後∴郢ｧ�ｽ｣郢晢ｽｳ郢晏ｳｨ縺郁怙�ｿｽ邵ｺ�ｽｫ邵ｺ�ｿｽ郢ｧ荵敖ｰ邵ｺ�ｽｩ邵ｺ�ｿｽ邵ｺ荵晢ｿｽ�ｽｮ郢晢ｽ｡郢ｧ�ｽｽ郢晢ｿｽ郢晢ｿｽ

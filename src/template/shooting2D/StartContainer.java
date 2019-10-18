@@ -22,9 +22,9 @@ public class StartContainer extends RWTContainer {
 		addWidget(image);
 
 		RWTLabel startLabel = new RWTLabel();
-		startLabel.setString("Start");
-		startLabel.setRelativePosition(0.3f, 0.5f);
-		Font f = new Font("", Font.PLAIN, 60);
+		startLabel.setString("カキン・ノ・ダズの冒険");
+		startLabel.setRelativePosition(0f, 0.5f);
+		Font f = new Font("", Font.PLAIN, 40);
 		startLabel.setFont(f);
 		addWidget(startLabel);
 

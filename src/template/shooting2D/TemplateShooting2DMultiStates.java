@@ -137,7 +137,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		// 各登場物の初期化
 		//
 		// ////////////////////////////////////////////////////////
-		myShipSprite = new MyShipSprite("data\\images\\MyShip.gif");
+		myShipSprite = new MyShipSprite("data\\images\\Ghost.gif");
 		myShipSprite.setPosition(-12.0, 0.0);
 		this.speed = new Velocity2D(10.0,10.0);
 
@@ -290,6 +290,13 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			EnemyBullet enemyBullet = enemyBulletList.get(i);
 			if (myShipSprite.checkCollision(enemyBullet)) {
 				System.out.println("敵の弾" + i + "と衝突した！");
+				myShipSprite.addMyHP(-10);
+				System.out.println("カキンのHP" + myShipSprite.getMyHP());
+
+			if (myShipSprite.MeDown()) {
+				System.out.println("やられた！");
+			}
+
 			}
 		}
 

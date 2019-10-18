@@ -24,6 +24,9 @@ public class EnemySprite extends Sprite {
 	int rangeWidth = TemplateShooting2D.RANGE;
 	int rangeHeight = TemplateShooting2D.RANGE;
 
+	private int shotState = 0;
+	private long lastShootTime = 0;
+
 	//邨碁℃譎る俣
 	public double timeenemy = 0.0;
 
@@ -56,6 +59,7 @@ public class EnemySprite extends Sprite {
 		return collisionRadius;
 	}
 
+
 	// ////////////////////////////////////////////////////
 	//
 	// 隰ｨ�ｽｵ隶匁ｺ假ｿｽ�ｽｮ陟托ｽｾ郢ｧ蝣､蛹ｱ陝��ｿｽ邵ｺ蜷ｶ�ｽ狗ｹ晢ｽ｡郢ｧ�ｽｽ郢晢ｿｽ郢晢ｿｽ
@@ -67,11 +71,12 @@ public class EnemySprite extends Sprite {
 	 *
 	 * @return -- 陟托ｽｾ陝ｷ霈披�ｲ陷茨ｽ･邵ｺ�ｽ｣邵ｺ陂羊rayList
 	 */
-	public ArrayList<EnemyBullet> shootDanmaku() {
+	public ArrayList<EnemyBullet> shootDanmaku(long MAX_SHOOT) {
 		double bulletX, bulletY;
 
 		ArrayList<EnemyBullet> enemyBulletList = new ArrayList<EnemyBullet>();
-		for (int i = 0; i < MAX_DANMAKU; i++) {
+
+		for (int i = 0; i < MAX_SHOOT; i++) {
 			EnemyBullet enemyBullet = new EnemyBullet("data\\images\\enemyBullet.gif");
 
 			bulletX = BULLET_DISTANCE * (Math.cos(i * (2 * Math.PI / MAX_DANMAKU)));
@@ -86,6 +91,50 @@ public class EnemySprite extends Sprite {
 		}
 
 		return enemyBulletList;
+	}
+
+	/// <summary>
+	/// 敵の弾幕発射
+	/// <param name = "game">ステート</param>
+	/// </summary>
+
+	public void shot(TemplateShooting2DMultiStates game)
+	{
+		// 敵のアクション処理
+		// 弾幕の発射
+		switch(shotState){
+
+		case 0:
+			if(System.currentTimeMillis() - lastShootTime > 1000) {
+				game.setEnemyBullet(
+						shootDanmaku(/*SHOT_NUM ->*/32)
+						);
+				lastShootTime = System.currentTimeMillis();
+			}
+
+			break;
+		}
+	}
+
+	/// <summary>
+	/// 敵弾幕発射のオーバーロード
+	/// </summary>
+	public void shot(TemplateShooting2D game)
+	{
+		// 敵のアクション処理
+		// 弾幕の発射
+		switch(shotState){
+
+		case 0:
+			if(System.currentTimeMillis() - lastShootTime > 1000) {
+				game.setEnemyBullet(
+						shootDanmaku(/*SHOT_NUM ->*/32)
+						);
+				lastShootTime = System.currentTimeMillis();
+			}
+
+			break;
+		}
 	}
 
 	// ////////////////////////////////////////////////////

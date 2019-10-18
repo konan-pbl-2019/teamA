@@ -37,8 +37,13 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	private IGameState mainState = null;
 	private RWTContainer mainContainer = null;
 
+	/// <summary>
+	/// 各シーンの初期化
+	/// </summary>
 	public TemplateShooting2DMultiStates() {
 		super();
+
+		// タイトル画面
 		initialGameState = new IGameState() {
 			@Override
 			public void init(RWTFrame3D frame) {
@@ -50,11 +55,13 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			public boolean useTimer() {
 				return false;
 			}
+
 			@Override
 			public void update(RWTVirtualController virtualController, long interval) {
 			}
 		};
 
+		// メイン画面
 		mainState = new IGameState() {
 			@Override
 			public void init(RWTFrame3D frame) {
@@ -72,6 +79,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			}
 		};
 
+		// エンディング画面
 		finalGameState = new IGameState() {
 			@Override
 			public void init(RWTFrame3D frame) {
@@ -88,28 +96,37 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 				play();
 			}
 		};
+
+		// タイトル画面のセット
 		setCurrentGameState(initialGameState);
 	}
 
+	// タイトル
 	public void restart() {
 		stop();
 		setCurrentGameState(initialGameState);
 		start();
 	}
 
+	// ゲーム画面
 	public void play() {
 		stop();
-		setCurrentGameState(mainState);
+		setCurrentGameState(this);
 
 		start();
 	}
 
+	// エンディング
 	public void ending() {
 		stop();
 		setCurrentGameState(finalGameState);
 		start();
 	}
 
+
+	/// <summary>
+	///  初期化
+	/// </summary>
 	@Override
 	public void init(Universe universe) {
 

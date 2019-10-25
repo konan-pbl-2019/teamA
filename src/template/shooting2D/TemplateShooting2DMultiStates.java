@@ -1,6 +1,5 @@
 package template.shooting2D;
 
-import java.awt.Event;
 import java.util.ArrayList;
 
 import framework.RWT.RWTContainer;
@@ -44,8 +43,9 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	private RWTContainer mainContainer = null;
 
 	//弾の音
-	private Sound3D gunsound = new Sound3D("data\\sound\\gun.wav");
-	private Sound3D mainBGM = BGM3D.registerBGM("data\\sound\\conbat.wav");
+	private Sound3D gunsound = new Sound3D("data\\sound\\shoot.wav");
+	//BGM
+	private Sound3D mainBGM = BGM3D.registerBGM("data\\sound\\combat.WAV");
 
 	/// <summary>
 	/// 各シーンの初期化
@@ -235,10 +235,10 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 	@Override
 	public void progress(RWTVirtualController virtualController, long interval) {
-		if (virtualController.isKeyDown(Event.ENTER)) {
-			ending();
-		}
-
+//		if (virtualController.isKeyDown(Event.ENTER)) {
+//			ending();
+//		}
+//
 		// /////////////////////////////////////////////////////////
 		//
 		// 各登場物のアクション
@@ -355,6 +355,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 			if (myShipSprite.MeDown()) {
 				System.out.println("やられた！");
+				ending();
 			}
 
 			}
@@ -392,6 +393,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		// 衝突判定（プレイヤーと敵）
 		if (myShipSprite.checkCollision(enemySprite)) {
 			System.out.println("敵と衝突した！");
+			ending();
 		}
 
 	}

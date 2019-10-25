@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import framework.RWT.RWTFrame3D;
 import framework.RWT.RWTVirtualController;
+import framework.audio.Sound3D;
 import framework.game2D.Ground2D;
 import framework.game2D.Velocity2D;
 import framework.gameMain.SimpleShootingGame;
@@ -24,6 +25,8 @@ public class TemplateShooting2D extends SimpleShootingGame {
 	private long lastMyShipBulletShootTime = 0;
 	private long lastMyShipBulletShootDanamakuTime = 0;
 	private long lastEnemyShootTime = 0;
+
+	private Sound3D gunsound = new Sound3D("data\\sound\\gun.wav");
 
 	// あとで設計変更
 	// Enemyクラスでこの値を使いたいため。
@@ -93,6 +96,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 
 		// 弾の発射
 		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_D)) {
+			gunsound.play();
 			if (System.currentTimeMillis() - lastMyShipBulletShootTime > 1000) {
 				myShipBullet = new MyShipBullet("data\\images\\myBullet.gif");
 				myShipBullet.setPosition(myShipSprite.getPosition());
@@ -103,14 +107,14 @@ public class TemplateShooting2D extends SimpleShootingGame {
 			}
 		}
 
-		// 弾幕の発射
-		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)) {
-			if (System.currentTimeMillis() - lastMyShipBulletShootDanamakuTime > 1000) {
-				myShipBulletFromMyShip = myShipSprite.shootDanmaku();
-				this.setMyShipBullet(myShipBulletFromMyShip);
-				lastMyShipBulletShootDanamakuTime = System.currentTimeMillis();
-			}
-		}
+//		// 弾幕の発射
+//		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_C)) {
+//			if (System.currentTimeMillis() - lastMyShipBulletShootDanamakuTime > 1000) {
+//				myShipBulletFromMyShip = myShipSprite.shootDanmaku();
+//				this.setMyShipBullet(myShipBulletFromMyShip);
+//				lastMyShipBulletShootDanamakuTime = System.currentTimeMillis();
+//			}
+//		}
 
 		enemySprite.shot(this);
 

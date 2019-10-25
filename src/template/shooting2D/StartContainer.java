@@ -14,7 +14,7 @@ import framework.audio.Sound3D;
 
 public class StartContainer extends RWTContainer {
 	private TemplateShooting2DMultiStates game;
-	private Sound3D startBGM = BGM3D.registerBGM("data\\sound\\start.wav");
+	private Sound3D startBGM = BGM3D.registerBGM("data\\sound\\start.WAV");
 	private Sound3D selectsound = new Sound3D("data\\sound\\select.wav");
 
 	public StartContainer(TemplateShooting2DMultiStates game) {

@@ -379,22 +379,23 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		for (int i = 0; i < myShipBulletList.size(); i++) {
 			MyShipBullet myShipBullet = myShipBulletList.get(i);
 			if (myShipBullet.checkCollision(enemySprite)) {
-				System.out.println("ƒvƒŒƒCƒ„[‚Ì’e‚ª“G‚ÉÕ“Ë‚µ‚½I");
+				//System.out.println("ƒvƒŒƒCƒ„[‚Ì’e‚ª“G‚ÉÕ“Ë‚µ‚½I");
 				enemySprite.addEnemyHP(-10);
 				System.out.println("“G‚ÌHP" + enemySprite.getEnemyHP());
 
 				if (enemySprite.shootDown()) {
 					System.out.println("“G‚ð“|‚µ‚½I");
+					ending();
 				}
 
 			}
 		}
 
-		// Õ“Ë”»’èiƒvƒŒƒCƒ„[‚Æ“Gj
-		if (myShipSprite.checkCollision(enemySprite)) {
-			System.out.println("“G‚ÆÕ“Ë‚µ‚½I");
-			ending();
-		}
+//		// Õ“Ë”»’èiƒvƒŒƒCƒ„[‚Æ“Gj
+//		if (myShipSprite.checkCollision(enemySprite)) {
+//			System.out.println("“G‚ÆÕ“Ë‚µ‚½I");
+//			
+//		}
 
 	}
 

@@ -207,7 +207,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		enemySprite.setVelocity(0.0, 8.0);
 		universe.place(enemySprite);
 
-		stage = new Ground2D(null, "data\\images\\haaka.jpeg", windowSizeWidth,
+		stage = new Ground2D(null, "data\\images\\hakka.jpg", windowSizeWidth,
 				windowSizeHeight);
 		universe.place(stage);
 

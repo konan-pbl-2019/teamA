@@ -355,6 +355,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 			if (myShipSprite.MeDown()) {
 				System.out.println("Ç‚ÇÁÇÍÇΩÅI");
+				ending();
 			}
 
 			}

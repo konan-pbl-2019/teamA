@@ -9,10 +9,10 @@ import framework.RWT.RWTLabel;
 import framework.RWT.RWTVirtualController;
 import framework.RWT.RWTVirtualKey;
 
-public class ScenarioContainer  extends RWTContainer {
+public class Scenario2Container  extends RWTContainer {
     private TemplateShooting2DMultiStates game;
 
-    public ScenarioContainer(TemplateShooting2DMultiStates game) {
+    public Scenario2Container(TemplateShooting2DMultiStates game) {
         this.game = game;
     }
 
@@ -22,7 +22,7 @@ public class ScenarioContainer  extends RWTContainer {
 //		addWidget(image);
 
         RWTLabel startLabel = new RWTLabel();
-        startLabel.setString("‚Í2059”Nc");
+        startLabel.setString("10å¹´å¾Œãƒ»ãƒ»ãƒ»");
         startLabel.setColor(Color.black);
         startLabel.setRelativePosition(0.05f, 0.3f);
         Font f = new Font("", Font.PLAIN, 20);
@@ -30,7 +30,7 @@ public class ScenarioContainer  extends RWTContainer {
         addWidget(startLabel);
 
         RWTLabel scenario1Label = new RWTLabel();
-        scenario1Label.setString("ƒJƒLƒ“EƒmEƒ_ƒY‚Í‚È‚ñ‚â‚©‚ñ‚â‹àŒ‡‚É‚È‚Á‚Ä");
+        scenario1Label.setString("ãƒ¤ãƒ²ãƒ»äºŒãƒ»ãƒŠãƒƒã‚¿ã€Œã‚ˆãæ¥ãŸã­ï½ã€");
         scenario1Label.setColor(Color.black);
         scenario1Label.setRelativePosition(0.05f, 0.5f);
         Font a = new Font("", Font.PLAIN, 20);
@@ -38,7 +38,7 @@ public class ScenarioContainer  extends RWTContainer {
         addWidget(scenario1Label);
 
         RWTLabel scenario2Label = new RWTLabel();
-        scenario2Label.setString("‚È‚ñ‚â‚©‚ñ‚âA’†‘Åã‚Ìƒ}ƒtƒBƒA‚Ìˆêˆö‚Æ‚È‚Á‚½c");
+        scenario2Label.setString("ã€Œåƒ•ã‚’å€’ã—ãŸã‚‰æœ€å¼·ã®ãƒãƒ•ã‚£ã‚¢ã ã‚ˆï½â¤´ã€");
         scenario2Label.setColor(Color.black);
         scenario2Label.setRelativePosition(0.05f, 0.7f);
         Font b = new Font("", Font.PLAIN, 20);
@@ -51,7 +51,7 @@ public class ScenarioContainer  extends RWTContainer {
     @Override
     public void keyPressed(RWTVirtualKey key) {
         if (key.getVirtualKey() == RWTVirtualController.BUTTON_A) {
-            game.scenario2();
+            game.play();
         }
     }
 

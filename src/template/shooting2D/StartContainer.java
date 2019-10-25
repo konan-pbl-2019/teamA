@@ -41,7 +41,7 @@ public class StartContainer extends RWTContainer {
 	public void keyPressed(RWTVirtualKey key) {
 		if (key.getVirtualKey() == RWTVirtualController.BUTTON_A) {
 			selectsound.play();
-			game.play();
+			game.scenario1();
 		}
 	}
 

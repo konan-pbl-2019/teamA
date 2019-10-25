@@ -207,7 +207,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		enemySprite.setVelocity(0.0, 8.0);
 		universe.place(enemySprite);
 
-		stage = new Ground2D(null, "data\\images\\haka.jpeg", windowSizeWidth,
+		stage = new Ground2D(null, "data\\images\\haaka.jpeg", windowSizeWidth,
 				windowSizeHeight);
 		universe.place(stage);
 
@@ -267,7 +267,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_A)) {
 			if (System.currentTimeMillis() - lastMyShipBulletShootTime > 500) {
 				gunsound.play();
-				myShipBullet = new MyShipBullet("data\\images\\myBullet.gif");
+				myShipBullet = new MyShipBullet("data\\images\\Ghost.gif");
 				myShipBullet.setPosition(myShipSprite.getPosition());
 				myShipBullet.setVelocity(new Velocity2D(20.0, 0.0));
 				universe.place(myShipBullet);
@@ -349,7 +349,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		for (int i = 0; i < enemyBulletList.size(); i++) {
 			EnemyBullet enemyBullet = enemyBulletList.get(i);
 			if (myShipSprite.checkCollision(enemyBullet)) {
-				System.out.println("“G‚Ì’e" + i + "‚ÆÕ“Ë‚µ‚½I");
+				//System.out.println("“G‚Ì’e" + i + "‚ÆÕ“Ë‚µ‚½I");
 				myShipSprite.addMyHP(-10);
 				System.out.println("ƒJƒLƒ“‚ÌHP" + myShipSprite.getMyHP());
 
@@ -380,8 +380,8 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			MyShipBullet myShipBullet = myShipBulletList.get(i);
 			if (myShipBullet.checkCollision(enemySprite)) {
 				//System.out.println("ƒvƒŒƒCƒ„[‚Ì’e‚ª“G‚ÉÕ“Ë‚µ‚½I");
-				enemySprite.addEnemyHP(-10);
-				System.out.println("“G‚ÌHP" + enemySprite.getEnemyHP());
+				enemySprite.addEnemyHP(-100);
+				System.out.println("ƒ„ƒIEƒjEƒiƒbƒ^‚ÌHP" + enemySprite.getEnemyHP());
 
 				if (enemySprite.shootDown()) {
 					System.out.println("“G‚ð“|‚µ‚½I");

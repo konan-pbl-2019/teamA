@@ -9,7 +9,7 @@ public class MyShipSprite extends Sprite {
 	// ’e‚ÌÀ•W
 	double bulletX, bulletY;
 	//HP
-	public int myHP = 100000;
+	public int myHP = 8000;
 	// ’e–‹‚ÌÅ‘å”
 	public final int MAX_DANMAKU = 32;
 	// ’e‚Ì”­Ë‚Ì©‹@‚©‚ç‚ÌˆÊ’u

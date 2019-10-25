@@ -67,7 +67,7 @@ public class EndingContainer extends RWTContainer {
 
 	@Override
 	public void keyPressed(RWTVirtualKey key) {
-		if (key.getVirtualKey() == RWTVirtualController.BUTTON_A) {
+		if (key.getVirtualKey() == RWTVirtualController.BUTTON_C) {
 			selectsound.play();
 			game.restart();
 		}

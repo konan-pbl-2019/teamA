@@ -13,7 +13,7 @@ public class EnemySprite extends Sprite {
 	double t = 0.0;
 
 	private MyShipSprite player;
-	private int enemyHP = 7000;
+	private int enemyHP = 6000;
 
 	// 陟托ｽｾ陝ｷ霈費ｿｽ�ｽｮ隴幢ｿｽ陞滂ｽｧ隰ｨ�ｽｰ
 	private final int MAX_DANMAKU = 32;
@@ -84,7 +84,7 @@ public class EnemySprite extends Sprite {
 
 		for (int i = -1; i <= 1; i++) {
 //		for (int i = 0; i < MAX_SHOOT; i++) {
-			EnemyBullet enemyBullet = new EnemyBullet("data\\images\\enemyBullet.gif");
+			EnemyBullet enemyBullet = new EnemyBullet("data\\images\\Ghost_bullet.gif");
 
 			bulletX = BULLET_DISTANCE * (spd.getX() * Math.cos(i * (rad * Math.PI / MAX_DANMAKU)));
 			bulletY = BULLET_DISTANCE * (spd.getY() * Math.sin(i * (rad * Math.PI / MAX_DANMAKU)));

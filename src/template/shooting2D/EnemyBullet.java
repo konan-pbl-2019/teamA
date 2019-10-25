@@ -1,11 +1,10 @@
 package template.shooting2D;
 
-import framework.game2D.FlyingActor2D;
 import framework.game2D.Sprite;
 
 public class EnemyBullet extends Sprite {
 	public EnemyBullet(String imageFile) {
-		super(imageFile, 0.2f);
+		super(imageFile, 0.5f);
 		setCollisionRadius(0.2);
 	}
 

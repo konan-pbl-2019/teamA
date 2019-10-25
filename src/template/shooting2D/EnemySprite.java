@@ -12,7 +12,8 @@ public class EnemySprite extends Sprite {
 
 	double t = 0.0;
 
-	private int enemyHP = 10000;
+	private MyShipSprite player;
+	private int enemyHP = 7000;
 
 	// 陟托ｽｾ陝ｷ霈費ｿｽ�ｽｮ隴幢ｿｽ陞滂ｽｧ隰ｨ�ｽｰ
 	private final int MAX_DANMAKU = 32;
@@ -31,10 +32,12 @@ public class EnemySprite extends Sprite {
 	//邨碁℃譎る俣
 	public double timeenemy = 0.0;
 
-	public EnemySprite(String imageFile) {
+	public EnemySprite(String imageFile,MyShipSprite player) {
 		super(imageFile);
 
 		motionVel = new Velocity2D(0,0);
+
+		this.player = player;
 	}
 
 	// ////////////////////////////////////////////////////
@@ -81,7 +84,7 @@ public class EnemySprite extends Sprite {
 
 		for (int i = -1; i <= 1; i++) {
 //		for (int i = 0; i < MAX_SHOOT; i++) {
-			EnemyBullet enemyBullet = new EnemyBullet("data\\images\\Ghost_bullet.gif");
+			EnemyBullet enemyBullet = new EnemyBullet("data\\images\\enemyBullet.gif");
 
 			bulletX = BULLET_DISTANCE * (spd.getX() * Math.cos(i * (rad * Math.PI / MAX_DANMAKU)));
 			bulletY = BULLET_DISTANCE * (spd.getY() * Math.sin(i * (rad * Math.PI / MAX_DANMAKU)));
@@ -114,7 +117,7 @@ public class EnemySprite extends Sprite {
 			if(System.currentTimeMillis() - lastShootTime > 300) {
 				game.setEnemyBullet(
 						shootDanmaku(
-								/*SHOT_NUM ->*/32,
+								/*SHOT_NUM ->*/12,
 								/*SHOT_SPEED*/new Velocity2D(-1.0, 1.0),
 								/*RAD*/5
 								)
@@ -126,16 +129,55 @@ public class EnemySprite extends Sprite {
 		case 1:
 			if(System.currentTimeMillis() - lastShootTime > 300) {
 
-				for(int i = 0; i < 10; i++)
+				for(int i = 0; i < 4; i++)
 
 				game.setEnemyBullet(
-						shootDanmaku(/*SHOT_NUM*/4,
+						shootDanmaku(
+								/*SHOT_NUM*/5,
 									 /*SHOT_SPEED*/new Velocity2D(-2.0, 1.0),
-									 /*RAD*/i * 9
+									 /*RAD*/i * 20
 									)
 						);
 
 				lastShootTime = System.currentTimeMillis();
+			}
+			break;
+
+
+			case 2:
+				if(System.currentTimeMillis() - lastShootTime > 300) {
+
+					for(int i = 0; i < 5; i++)
+
+						game.setEnemyBullet(
+								shootDanmaku(
+										/*SHOT_NUM*/32,
+										/*SHOT_SPEED*/new Velocity2D(-2.0, 2.0),
+										/*RAD*/i * 60
+										)
+								);
+
+					lastShootTime = System.currentTimeMillis();
+			}
+			break;
+
+			case 3:
+				double dx = player.getPosition().getX() - this.getPosition().getX();
+				double dy = player.getPosition().getY() - this.getPosition().getY();
+
+				if(System.currentTimeMillis() - lastShootTime > 100) {
+
+					for(int i = 0; i < 18; i++)
+
+						game.setEnemyBullet(
+								shootDanmaku(
+										/*SHOT_NUM*/32,
+										/*SHOT_SPEED*/new Velocity2D(-2.0, 1.0),
+										/*RAD*/Math.atan2(dy, dx)
+										)
+								);
+
+					lastShootTime = System.currentTimeMillis();
 			}
 			break;
 		}
@@ -167,10 +209,10 @@ public class EnemySprite extends Sprite {
 			break;
 
 		case 1:
-			if(System.currentTimeMillis() - lastShootTime > 300) {
+			if(System.currentTimeMillis() - lastShootTime > 100) {
 				game.setEnemyBullet(
 						shootDanmaku(/*SHOT_NUM*/36,
-									 /*SHOT_SPEED*/new Velocity2D(-2.0, 2.0),
+									 /*SHOT_SPEED*/new Velocity2D(-2.0, 4.0),
 								     /*RAD*/380
 									)
 						);
@@ -225,12 +267,32 @@ public class EnemySprite extends Sprite {
 				break;
 
 			case 1:
-				a = 40;
+				a = 10;
 				spd = 0.1f;
 				motionVel = new Velocity2D(
 						a * (Math.cos(t) - Math.sin(t)),
 						a * (Math.sin(t) + Math.cos(t))
 						);
+				break;
+
+			case 2:
+				a = 2;
+				spd = 0.1f;
+				motionVel = new Velocity2D(
+						-0.1f,
+						2.0
+						);
+				break;
+
+			case 3:
+				a = 2;
+				spd = 0.1f;
+				motionVel = new Velocity2D(
+						2.0,
+						2.0
+						);
+				break;
+
 		}
 
 		switch (insideX()) {

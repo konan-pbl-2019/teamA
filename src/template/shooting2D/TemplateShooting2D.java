@@ -41,7 +41,7 @@ public class TemplateShooting2D extends SimpleShootingGame {
 		myShipSprite.setPosition(0.0, -10.0);
 		universe.place(myShipSprite);
 
-		enemySprite = new EnemySprite("data\\images\\Enemy.gif");
+		enemySprite = new EnemySprite("data\\images\\Enemy.gif",myShipSprite);
 		enemySprite.setPosition(0.0, 10.0);
 		enemySprite.setVelocity(5.0, 5.0);
 		universe.place(enemySprite);

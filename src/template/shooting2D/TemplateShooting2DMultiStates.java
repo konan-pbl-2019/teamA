@@ -150,12 +150,12 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 		universe.place(myShipSprite);
 
-		enemySprite = new EnemySprite("data\\images\\Enemy.gif");
+		enemySprite = new EnemySprite("data\\images\\KingGhost.gif");
 		enemySprite.setPosition(10.0, 0.0);
 		enemySprite.setVelocity(0.0, 8.0);
 		universe.place(enemySprite);
 
-		stage = new Ground2D(null, "data\\images\\m101.jpg", windowSizeWidth,
+		stage = new Ground2D(null, "data\\images\\haka.jpeg", windowSizeWidth,
 				windowSizeHeight);
 		universe.place(stage);
 
@@ -315,7 +315,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 				EnemyBullet enemyBullet = enemyBulletList.get(j);
 				if (myShipBullet.checkCollision(enemyBullet)) {
 					// “G‚Ì’e‚ğÁ‚·
-					System.out.println("ƒvƒŒƒCƒ„[‚Ì’e" + i + "‚ª“G‚Ì’e" + j + "‚ÆÕ“Ë‚µ‚½I");
+					//System.out.println("ƒvƒŒƒCƒ„[‚Ì’e" + i + "‚ª“G‚Ì’e" + j + "‚ÆÕ“Ë‚µ‚½I");
 					universe.displace(enemyBullet);
 					enemyBulletList.remove(j);
 				}

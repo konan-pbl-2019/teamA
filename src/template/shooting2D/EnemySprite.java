@@ -26,12 +26,15 @@ public class EnemySprite extends Sprite {
 
 	private int shotState = 0;
 	private long lastShootTime = 0;
+	private Velocity2D motionVel;
 
 	//邨碁℃譎る俣
 	public double timeenemy = 0.0;
 
 	public EnemySprite(String imageFile) {
 		super(imageFile);
+
+		motionVel = new Velocity2D(0,0);
 	}
 
 	// ////////////////////////////////////////////////////
@@ -71,7 +74,7 @@ public class EnemySprite extends Sprite {
 	 *
 	 * @return -- 陟托ｽｾ陝ｷ霈披�ｲ陷茨ｽ･邵ｺ�ｽ｣邵ｺ陂羊rayList
 	 */
-	public ArrayList<EnemyBullet> shootDanmaku(long MAX_SHOOT) {
+	public ArrayList<EnemyBullet> shootDanmaku(long MAX_SHOOT, Velocity2D spd, double rad) {
 		double bulletX, bulletY;
 
 		ArrayList<EnemyBullet> enemyBulletList = new ArrayList<EnemyBullet>();
@@ -80,8 +83,8 @@ public class EnemySprite extends Sprite {
 //		for (int i = 0; i < MAX_SHOOT; i++) {
 			EnemyBullet enemyBullet = new EnemyBullet("data\\images\\enemyBullet.gif");
 
-			bulletX = BULLET_DISTANCE * (-1*Math.cos(i * (5 * Math.PI / MAX_DANMAKU)));
-			bulletY = BULLET_DISTANCE * (Math.sin(i * (5 * Math.PI / MAX_DANMAKU)));
+			bulletX = BULLET_DISTANCE * (spd.getX() * Math.cos(i * (rad * Math.PI / MAX_DANMAKU)));
+			bulletY = BULLET_DISTANCE * (spd.getY() * Math.sin(i * (rad * Math.PI / MAX_DANMAKU)));
 
 			// 陟托ｽｾ邵ｺ�ｽｮ闖ｴ蜥ｲ�ｽｽ�ｽｮ郢ｧ螳夲ｽｨ�ｽｭ陞ｳ�ｿｽ
 			enemyBullet.setPosition(this.getPosition());
@@ -101,6 +104,8 @@ public class EnemySprite extends Sprite {
 
 	public void shot(TemplateShooting2DMultiStates game)
 	{
+		changeState();
+
 		// 敵のアクション処理
 		// 弾幕の発射
 		switch(shotState){
@@ -108,11 +113,30 @@ public class EnemySprite extends Sprite {
 		case 0:
 			if(System.currentTimeMillis() - lastShootTime > 300) {
 				game.setEnemyBullet(
-						shootDanmaku(/*SHOT_NUM ->*/32)
+						shootDanmaku(
+								/*SHOT_NUM ->*/32,
+								/*SHOT_SPEED*/new Velocity2D(-1.0, 1.0),
+								/*RAD*/5
+								)
 						);
 				lastShootTime = System.currentTimeMillis();
 			}
+			break;
 
+		case 1:
+			if(System.currentTimeMillis() - lastShootTime > 300) {
+
+				for(int i = 0; i < 10; i++)
+
+				game.setEnemyBullet(
+						shootDanmaku(/*SHOT_NUM*/4,
+									 /*SHOT_SPEED*/new Velocity2D(-2.0, 1.0),
+									 /*RAD*/i * 9
+									)
+						);
+
+				lastShootTime = System.currentTimeMillis();
+			}
 			break;
 		}
 	}
@@ -122,18 +146,37 @@ public class EnemySprite extends Sprite {
 	/// </summary>
 	public void shot(TemplateShooting2D game)
 	{
+
+		changeState();
+
 		// 敵のアクション処理
 		// 弾幕の発射
 		switch(shotState){
 
 		case 0:
-			if(System.currentTimeMillis() - lastShootTime > 1000) {
+			if(System.currentTimeMillis() - lastShootTime > 300) {
 				game.setEnemyBullet(
-						shootDanmaku(/*SHOT_NUM ->*/32)
+						shootDanmaku(
+								/*SHOT_NUM ->*/32,
+								/*SHOT_SPEED*/new Velocity2D(-1.0, 1.0),
+								/*RAD*/5
+								)
 						);
 				lastShootTime = System.currentTimeMillis();
 			}
+			break;
 
+		case 1:
+			if(System.currentTimeMillis() - lastShootTime > 300) {
+				game.setEnemyBullet(
+						shootDanmaku(/*SHOT_NUM*/36,
+									 /*SHOT_SPEED*/new Velocity2D(-2.0, 2.0),
+								     /*RAD*/380
+									)
+						);
+
+				lastShootTime = System.currentTimeMillis();
+			}
 			break;
 		}
 	}
@@ -152,33 +195,63 @@ public class EnemySprite extends Sprite {
 	//
 	// ///////////////////////////////////////////////////
 
+	public void changeState()
+	{
+
+		switch(enemyHP)
+		{
+			case 5000:
+			case 2500:
+			case 1000:
+				shotState++;
+				break;
+		}
+	}
 
 
 	public void motion(long interval) {
+		float spd = 0.05f;
 		float a = 10.0f;
-		t += 0.05f;
+		t += spd;
 
-		Velocity2D vel = new Velocity2D(Math.sin(t)*a, this.getVelocity().getY()+(Math.sin(t/2.5)*(a/150)));
+		switch(shotState){
+			case 0:
+				a = 10.0f;
+				motionVel = new Velocity2D(
+						Math.sin(t)*a,
+						this.getVelocity().getY()+(Math.sin(t/2.5)*(a/150))
+						);
+
+				break;
+
+			case 1:
+				a = 40;
+				spd = 0.1f;
+				motionVel = new Velocity2D(
+						a * (Math.cos(t) - Math.sin(t)),
+						a * (Math.sin(t) + Math.cos(t))
+						);
+		}
 
 		switch (insideX()) {
 		case -1:
-			vel.setX(Math.abs(this.getVelocity().getX()));
+			motionVel.setX(Math.abs(this.getVelocity().getX()));
 			break;
 		case 1:
-			vel.setX(Math.abs(this.getVelocity().getX()) * -1.0);
+			motionVel.setX(Math.abs(this.getVelocity().getX()) * -1.0);
 			break;
 		}
 
 		switch (insideY()) {
 		case -1:
-			vel.setY(Math.abs(this.getVelocity().getY()));
+			motionVel.setY(Math.abs(this.getVelocity().getY()));
 			break;
 		case 1:
-			vel.setY(Math.abs(this.getVelocity().getY()) * -1.0);
+			motionVel.setY(Math.abs(this.getVelocity().getY()) * -1.0);
 			break;
 		}
 
-		setVelocity(vel);
+		setVelocity(motionVel);
 		super.motion(interval);
 
 	}

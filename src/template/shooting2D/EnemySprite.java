@@ -76,16 +76,17 @@ public class EnemySprite extends Sprite {
 
 		ArrayList<EnemyBullet> enemyBulletList = new ArrayList<EnemyBullet>();
 
-		for (int i = 0; i < MAX_SHOOT; i++) {
+		for (int i = -1; i <= 1; i++) {
+//		for (int i = 0; i < MAX_SHOOT; i++) {
 			EnemyBullet enemyBullet = new EnemyBullet("data\\images\\enemyBullet.gif");
 
-			bulletX = BULLET_DISTANCE * (Math.cos(i * (2 * Math.PI / MAX_DANMAKU)));
-			bulletY = BULLET_DISTANCE * (Math.sin(i * (2 * Math.PI / MAX_DANMAKU)));
+			bulletX = BULLET_DISTANCE * (-1*Math.cos(i * (5 * Math.PI / MAX_DANMAKU)));
+			bulletY = BULLET_DISTANCE * (Math.sin(i * (5 * Math.PI / MAX_DANMAKU)));
 
 			// 陟托ｽｾ邵ｺ�ｽｮ闖ｴ蜥ｲ�ｽｽ�ｽｮ郢ｧ螳夲ｽｨ�ｽｭ陞ｳ�ｿｽ
 			enemyBullet.setPosition(this.getPosition());
 			// 陟托ｽｾ邵ｺ�ｽｮ驕假ｽｻ陷崎ｼ費ｿｽ蜷ｶ縺醍ｹ晏現ﾎ晉ｹｧ螳夲ｽｨ�ｽｭ陞ｳ螢ｹ笘�郢ｧ�ｿｽ
-			enemyBullet.setVelocity(new Velocity2D(bulletX * 5, bulletY * 5));
+			enemyBullet.setVelocity(new Velocity2D(bulletX * 20, bulletY * 5));
 
 			enemyBulletList.add(enemyBullet);
 		}
@@ -105,7 +106,7 @@ public class EnemySprite extends Sprite {
 		switch(shotState){
 
 		case 0:
-			if(System.currentTimeMillis() - lastShootTime > 1000) {
+			if(System.currentTimeMillis() - lastShootTime > 300) {
 				game.setEnemyBullet(
 						shootDanmaku(/*SHOT_NUM ->*/32)
 						);
@@ -154,10 +155,10 @@ public class EnemySprite extends Sprite {
 
 
 	public void motion(long interval) {
-		float a = 2.5f;
-		t += 0.5f;
+		float a = 10.0f;
+		t += 0.05f;
 
-		Velocity2D vel = new Velocity2D(Math.sin(t)*a, this.getVelocity().getY());
+		Velocity2D vel = new Velocity2D(Math.sin(t)*a, this.getVelocity().getY()+(Math.sin(t/2.5)*(a/150)));
 
 		switch (insideX()) {
 		case -1:

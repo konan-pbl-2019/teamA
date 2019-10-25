@@ -206,24 +206,24 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 		// ’e‚Ì”­ŽË
 		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_A)) {
-			if (System.currentTimeMillis() - lastMyShipBulletShootTime > 1000) {
+			if (System.currentTimeMillis() - lastMyShipBulletShootTime > 500) {
 				myShipBullet = new MyShipBullet("data\\images\\myBullet.gif");
 				myShipBullet.setPosition(myShipSprite.getPosition());
-				myShipBullet.setVelocity(new Velocity2D(0.0, 7.0));
+				myShipBullet.setVelocity(new Velocity2D(20.0, 0.0));
 				universe.place(myShipBullet);
 				myShipBulletList.add(myShipBullet);
 				lastMyShipBulletShootTime = System.currentTimeMillis();
 			}
 		}
 
-		// ’e–‹‚Ì”­ŽË
-		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_B)) {
-			if (System.currentTimeMillis() - lastMyShipBulletShootDanamakuTime > 1000) {
-				myShipBulletFromMyShip = myShipSprite.shootDanmaku();
-				this.setMyShipBullet(myShipBulletFromMyShip);
-				lastMyShipBulletShootDanamakuTime = System.currentTimeMillis();
-			}
-		}
+//		// ’e–‹‚Ì”­ŽË
+//		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_B)) {
+//			if (System.currentTimeMillis() - lastMyShipBulletShootDanamakuTime > 1000) {
+//				myShipBulletFromMyShip = myShipSprite.shootDanmaku();
+//				this.setMyShipBullet(myShipBulletFromMyShip);
+//				lastMyShipBulletShootDanamakuTime = System.currentTimeMillis();
+//			}
+//		}
 
 		/// “G‚Ì’e–‹
 		enemySprite.shot(this);

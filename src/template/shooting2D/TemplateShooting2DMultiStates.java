@@ -202,7 +202,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 		universe.place(myShipSprite);
 
-		enemySprite = new EnemySprite("data\\images\\KingGhost.gif");
+		enemySprite = new EnemySprite("data\\images\\KingGhost.gif",myShipSprite);
 		enemySprite.setPosition(10.0, 0.0);
 		enemySprite.setVelocity(0.0, 8.0);
 		universe.place(enemySprite);
@@ -394,7 +394,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 //		// 衝突判定（プレイヤーと敵）
 //		if (myShipSprite.checkCollision(enemySprite)) {
 //			System.out.println("敵と衝突した！");
-//			
+//
 //		}
 
 	}

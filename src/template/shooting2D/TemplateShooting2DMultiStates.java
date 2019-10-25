@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import framework.RWT.RWTContainer;
 import framework.RWT.RWTFrame3D;
 import framework.RWT.RWTVirtualController;
+import framework.audio.BGM3D;
+import framework.audio.Sound3D;
 import framework.game2D.Ground2D;
 import framework.game2D.Velocity2D;
 import framework.gameMain.IGameState;
@@ -38,6 +40,10 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	private IGameState finalGameState = null;
 	private IGameState mainState = null;
 	private RWTContainer mainContainer = null;
+
+	//弾の音
+	private Sound3D gunsound = new Sound3D("data\\sound\\gun.wav");
+	private Sound3D mainBGM = BGM3D.registerBGM("data\\sound\\conbat.wav");
 
 	/// <summary>
 	/// 各シーンの初期化
@@ -116,6 +122,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		setCurrentGameState(this);
 
 		start();
+		BGM3D.playBGM(mainBGM);
 	}
 
 	// エンディング
@@ -207,6 +214,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		// 弾の発射
 		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_A)) {
 			if (System.currentTimeMillis() - lastMyShipBulletShootTime > 500) {
+				gunsound.play();
 				myShipBullet = new MyShipBullet("data\\images\\myBullet.gif");
 				myShipBullet.setPosition(myShipSprite.getPosition());
 				myShipBullet.setVelocity(new Velocity2D(20.0, 0.0));

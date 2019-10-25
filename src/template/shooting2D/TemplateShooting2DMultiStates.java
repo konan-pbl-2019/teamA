@@ -137,7 +137,7 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 		// äeìoèÍï®ÇÃèâä˙âª
 		//
 		// ////////////////////////////////////////////////////////
-		myShipSprite = new MyShipSprite("data\\images\\MyShip.gif");
+		myShipSprite = new MyShipSprite("data\\images\\Ghost.gif");
 		myShipSprite.setPosition(-12.0, 0.0);
 		this.speed = new Velocity2D(10.0,10.0);
 
@@ -206,24 +206,24 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 
 		// íeÇÃî≠éÀ
 		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_A)) {
-			if (System.currentTimeMillis() - lastMyShipBulletShootTime > 1000) {
+			if (System.currentTimeMillis() - lastMyShipBulletShootTime > 500) {
 				myShipBullet = new MyShipBullet("data\\images\\myBullet.gif");
 				myShipBullet.setPosition(myShipSprite.getPosition());
-				myShipBullet.setVelocity(new Velocity2D(0.0, 7.0));
+				myShipBullet.setVelocity(new Velocity2D(20.0, 0.0));
 				universe.place(myShipBullet);
 				myShipBulletList.add(myShipBullet);
 				lastMyShipBulletShootTime = System.currentTimeMillis();
 			}
 		}
 
-		// íeñãÇÃî≠éÀ
-		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_B)) {
-			if (System.currentTimeMillis() - lastMyShipBulletShootDanamakuTime > 1000) {
-				myShipBulletFromMyShip = myShipSprite.shootDanmaku();
-				this.setMyShipBullet(myShipBulletFromMyShip);
-				lastMyShipBulletShootDanamakuTime = System.currentTimeMillis();
-			}
-		}
+//		// íeñãÇÃî≠éÀ
+//		if (virtualController.isKeyDown(0, RWTVirtualController.BUTTON_B)) {
+//			if (System.currentTimeMillis() - lastMyShipBulletShootDanamakuTime > 1000) {
+//				myShipBulletFromMyShip = myShipSprite.shootDanmaku();
+//				this.setMyShipBullet(myShipBulletFromMyShip);
+//				lastMyShipBulletShootDanamakuTime = System.currentTimeMillis();
+//			}
+//		}
 
 		/// ìGÇÃíeñã
 		enemySprite.shot(this);
@@ -290,6 +290,13 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			EnemyBullet enemyBullet = enemyBulletList.get(i);
 			if (myShipSprite.checkCollision(enemyBullet)) {
 				System.out.println("ìGÇÃíe" + i + "Ç∆è’ìÀÇµÇΩÅI");
+				myShipSprite.addMyHP(-10);
+				System.out.println("ÉJÉLÉìÇÃHP" + myShipSprite.getMyHP());
+
+			if (myShipSprite.MeDown()) {
+				System.out.println("Ç‚ÇÁÇÍÇΩÅI");
+			}
+
 			}
 		}
 

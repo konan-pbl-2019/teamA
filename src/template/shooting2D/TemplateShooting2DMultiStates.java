@@ -37,6 +37,8 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	private Velocity2D speed;
 
 	private IGameState initialGameState = null;
+	private IGameState scenario1GameState = null;
+	private IGameState scenario2GameState = null;
 	private IGameState finalGameState = null;
 	private IGameState mainState = null;
 	private RWTContainer mainContainer = null;
@@ -57,6 +59,42 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 			public void init(RWTFrame3D frame) {
 				TemplateShooting2DMultiStates.this.frame = frame;
 				RWTContainer container = new StartContainer(TemplateShooting2DMultiStates.this);
+				changeContainer(container);
+			}
+			@Override
+			public boolean useTimer() {
+				return false;
+			}
+
+			@Override
+			public void update(RWTVirtualController virtualController, long interval) {
+			}
+		};
+
+		// シナリオ１画面
+		scenario1GameState = new IGameState() {
+			@Override
+			public void init(RWTFrame3D frame) {
+				TemplateShooting2DMultiStates.this.frame = frame;
+				RWTContainer container = new ScenarioContainer(TemplateShooting2DMultiStates.this);
+				changeContainer(container);
+			}
+			@Override
+			public boolean useTimer() {
+				return false;
+			}
+
+			@Override
+			public void update(RWTVirtualController virtualController, long interval) {
+			}
+		};
+
+		// シナリオ2画面
+		scenario2GameState = new IGameState() {
+			@Override
+			public void init(RWTFrame3D frame) {
+				TemplateShooting2DMultiStates.this.frame = frame;
+				RWTContainer container = new Scenario2Container(TemplateShooting2DMultiStates.this);
 				changeContainer(container);
 			}
 			@Override
@@ -113,6 +151,20 @@ public class TemplateShooting2DMultiStates extends SimpleShootingGame {
 	public void restart() {
 		stop();
 		setCurrentGameState(initialGameState);
+		start();
+	}
+
+	// シナリオ1
+	public void scenario1() {
+		stop();
+		setCurrentGameState(scenario1GameState);
+		start();
+	}
+
+	// シナリオ2
+	public void scenario2() {
+		stop();
+		setCurrentGameState(scenario2GameState);
 		start();
 	}
 

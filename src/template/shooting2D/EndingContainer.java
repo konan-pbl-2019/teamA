@@ -14,7 +14,7 @@ import framework.audio.Sound3D;
 
 public class EndingContainer extends RWTContainer {
 	private TemplateShooting2DMultiStates game;
-	private Sound3D startBGM = BGM3D.registerBGM("data\\sound\\start.wav");
+	private Sound3D endBGM = BGM3D.registerBGM("data\\sound\\ending.wav");
 	private Sound3D selectsound = new Sound3D("data\\sound\\select.wav");
 
 
@@ -27,7 +27,7 @@ public class EndingContainer extends RWTContainer {
 		RWTImage image = new RWTImage("data\\images\\Background_EndingScreen.png");
 		image.setSize(1000,1000);
 		addWidget(image);
-		
+
 		RWTLabel end1Label = new RWTLabel();
 		end1Label.setString("終");
 		end1Label.setColor(Color.white);
@@ -43,7 +43,7 @@ public class EndingContainer extends RWTContainer {
 		Font f2 = new Font("", Font.PLAIN, 40);
 		end2Label.setFont(f2);
 		addWidget(end2Label);
-		
+
 		RWTLabel end3Label = new RWTLabel();
 		end3Label.setString("―――――――――――――――――");
 		end3Label.setColor(Color.white);
@@ -51,7 +51,7 @@ public class EndingContainer extends RWTContainer {
 		Font f3 = new Font("", Font.PLAIN, 40);
 		end2Label.setFont(f3);
 		addWidget(end3Label);
-		
+
 		RWTLabel end4Label = new RWTLabel();
 		end4Label.setString("ＰＢＬ");
 		end4Label.setColor(Color.white);
@@ -59,8 +59,9 @@ public class EndingContainer extends RWTContainer {
 		Font f4 = new Font("", Font.PLAIN, 40);
 		end4Label.setFont(f4);
 		addWidget(end4Label);
-		
-		BGM3D.playBGM(startBGM);
+
+		BGM3D.playBGM(endBGM);
+
 		repaint();
 	}
 
